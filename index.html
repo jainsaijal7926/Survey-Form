@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: skyblue;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: yellow;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid blue;
+            border-radius: 15px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        #submit-button, #reset-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        #submit-button:hover, #reset-button:hover {
+            background-color: #0056b3;
+        }
+
+        #popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #popup-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #close-popup {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px 20px;
+        }
+
+        #close-popup:hover {
+            background-color: #a02633;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="survey-form">
+            <div class="form-group">
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" name="first-name" required>
+            </div>
+            <div class="form-group">
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" name="last-name" required>
+            </div>
+            <div class="form-group">
+                <label for="date-of-birth">Date of Birth:</label>
+                <input type="date" id="date-of-birth" name="date-of-birth" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <select id="country" name="country" required>
+                    <option value="UK">India</option>
+                    <option value="USA">USA</option>
+                    <option value="Canada">Canada</option>
+                    <option value="UK">UK</option>
+                    <!-- Add more options here -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <input type="checkbox" id="male" name="gender" value="Male">
+                <label for="male">Male</label>
+                <input type="checkbox" id="female" name="gender" value="Female">
+                <label for="female">Female</label>
+            </div>
+            <div class="form-group">
+                <label for="profession">Profession:</label>
+                <input type="text" id="profession" name="profession" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile" name="mobile" required>
+            </div>
+            <div class="btn-container">
+                <button type="button" id="submit-button">Submit</button>
+                <button type="button" id="reset-button">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="popup">
+        <div id="popup-content">
+            <h2>Form Submitted</h2>
+            <p id="popup-result"></p>
+            <button id="close-popup">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for form validation and popup
+        document.getElementById("submit-button").addEventListener("click", function () {
+            // Validate the form here
+
+            // Example: Collect form data and display in a popup
+            const formData = {
+                "First Name": document.getElementById("first-name").value,
+                "Last Name": document.getElementById("last-name").value,
+                "Date of Birth": document.getElementById("date-of-birth").value,
+                "Country": document.getElementById("country").value,
+                "Gender": Array.from(document.querySelectorAll('input[name="gender"]:checked')).map(checkbox => checkbox.value).join(', '),
+                "Profession": document.getElementById("profession").value,
+                "Email": document.getElementById("email").value,
+                "Mobile Number": document.getElementById("mobile").value,
+            };
+
+            const popupResult = document.getElementById("popup-result");
+            popupResult.innerHTML = Object.entries(formData).map(([key, value]) => `${key}: ${value}`).join('<br>');
+
+            document.getElementById("popup").style.display = "flex";
+        });
+
+        document.getElementById("reset-button").addEventListener("click", function () {
+            document.getElementById("survey-form").reset();
+        });
+
+        document.getElementById("close-popup").addEventListener("click", function () {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("survey-form").reset();
+        });
+    </script>
+</body>
+</html>
